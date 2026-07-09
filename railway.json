@@ -1,0 +1,9 @@
+# VPN Store Bot - Railway.app Configuration
+# This file tells Railway how to run the application
+
+[build]
+builder = "nixpacks"
+
+[deploy]
+# Start both bots as separate processes (Procfile-style)
+command = "python3 -m main"

@@ -1,0 +1,3 @@
+# VPN Store Bot - Python version specification
+# Tells Railway which Python version to use for build
+3.12

@@ -1,0 +1,20 @@
+# Build and deployment configuration for Railway
+# This helps Railway optimize the build process
+
+[build]
+# Use Nix package manager for reproducible builds
+builder = "nixpacks"
+
+# Specify Node.js is NOT needed (reduces build time)
+nix-packages = ["python312"]
+
+[deploy]
+# Main entry point
+command = "python3 -m main"
+
+# Health check (optional)
+# healthcheck:
+#   test = ["CMD", "curl", "-f", "http://localhost:8000/health"]
+#   interval = 30s
+#   timeout = 10s
+#   retries = 3
