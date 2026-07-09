@@ -1,10 +1,9 @@
-# Start script for Railway deployment
-# Runs both user_bot and admin_bot as separate threads
+"""Main entry point for Railway deployment
+Runs both user_bot and admin_bot as separate tasks"""
 
 import asyncio
 import sys
 from typing import NoReturn
-import signal
 
 from utils.logger import get_logger
 from config.settings import settings
@@ -14,42 +13,50 @@ logger = get_logger(__name__)
 
 async def run_user_bot() -> None:
     """
-    Run user bot (placeholder for actual implementation)
-    
-    TODO: Import and run the actual user bot
-    from user_bot import main as user_bot_main
-    await user_bot_main()
+    Run user bot
+    TODO: Implement actual user bot logic
     """
     logger.info("User Bot started")
-    # await user_bot_main()
+    try:
+        # User bot logic will go here
+        # For now, keep running indefinitely
+        while True:
+            await asyncio.sleep(1)
+    except asyncio.CancelledError:
+        logger.info("User Bot stopped")
+        raise
 
 
 async def run_admin_bot() -> None:
     """
-    Run admin bot (placeholder for actual implementation)
-    
-    TODO: Import and run the actual admin bot
-    from admin_bot import main as admin_bot_main
-    await admin_bot_main()
+    Run admin bot
+    TODO: Implement actual admin bot logic
     """
     logger.info("Admin Bot started")
-    # await admin_bot_main()
+    try:
+        # Admin bot logic will go here
+        # For now, keep running indefinitely
+        while True:
+            await asyncio.sleep(1)
+    except asyncio.CancelledError:
+        logger.info("Admin Bot stopped")
+        raise
 
 
 async def main() -> NoReturn:
     """
     Main entry point for Railway deployment
-    Runs both bots concurrently using asyncio.TaskGroup
+    Runs both bots concurrently
     """
     logger.info(f"Starting VPN Store Bot (Environment: {settings.environment})")
     logger.info(f"Database: {settings.database_url}")
     
     # Verify critical settings
-    if not settings.get_user_bot_token():
+    if not settings.user_bot_token.get_secret_value():
         logger.error("USER_BOT_TOKEN not configured!")
         sys.exit(1)
     
-    if not settings.get_admin_bot_token():
+    if not settings.admin_bot_token.get_secret_value():
         logger.error("ADMIN_BOT_TOKEN not configured!")
         sys.exit(1)
     
